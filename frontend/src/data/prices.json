@@ -1,17 +1,6 @@
 {
     "prices": [
       {
-        "title": "MELONS",
-        "price": 8.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-      },
-      {
-        "title": "SAURELS",
-        "price": 1.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
         "title": "PASTEQUES",
         "price": 3.600,
         "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
@@ -46,102 +35,8 @@
         "price": 2.000,
         "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
 
-      },
-      {
-        "title": "PECHES PLATES",
-        "price": 26.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "PIMENTS PIQUANTS",
-        "price": 4.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "POMMES",
-        "price": 1.200,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "OIGNON SEC",
-        "price": 10.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "PAGEAUX DE PALANGRE",
-        "price": 1.100,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "GOURGETTES",
-        "price": 9.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "PRUNES",
-        "price": 1.500,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "CONCOMBRES",
-        "price": 4.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "ROUGETS BLANCS",
-        "price": 1.500,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "RAISINS",
-        "price": 23.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "PERSIL",
-        "price": 4.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "ROUGETS ROUGES",
-        "price": 1.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "CITRONS",
-        "price": 45.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "MULETS",
-        "price": 3.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "SERRES",
-        "price": 10.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
-      },
-      {
-        "title": "SEICHES",
-        "price": 30.000,
-        "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
-
       }
+     
+       
     ]
   }
