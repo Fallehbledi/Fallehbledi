@@ -1,197 +1,19 @@
-// "use client";
-// import { useEffect, useState } from 'react';
-// import Image from 'next/image';
-// // import { Line } from 'react-chartjs-2';
-// // import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-
-// // ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-
-// // function Page() {
-// //   const [data, setData] = useState<any>(null);
-// //   const [error, setError] = useState<string | null>(null);
-
-// //   useEffect(() => {
-// //     fetch('http://127.0.0.1:5000/weather')
-// //       .then((res) => {
-// //         if (!res.ok) {
-// //           throw new Error('Failed to fetch data');
-// //         }
-// //         return res.json();
-// //       })
-// //       .then((data) => setData(data))
-// //       .catch((error) => setError(error.message));
-// //   }, []);
-
-// //   if (error) {
-// //     return <div>Error: {error}</div>;
-// //   }
-
-// //   if (!data) {
-// //     return <div>Loading...</div>;
-// //   }
-
-// //   const current = data[0];
-// //   const forecast = data.slice(1);
-
-// //   // Prepare data for the chart
-// //   const chartData = {
-// //     labels: forecast.map((day: any) => day.date),
-// //     datasets: [
-// //       {
-// //         label: 'High Temperature',
-// //         data: forecast.map((day: any) => day.highTemperature),
-// //         borderColor: 'rgba(255, 99, 132, 1)', // bright red
-// //         backgroundColor: 'rgba(255, 99, 132, 0.2)', // light red
-// //         fill: true,
-// //       },
-// //       {
-// //         label: 'Low Temperature',
-// //         data: forecast.map((day: any) => day.lowTemperature),
-// //         borderColor: 'rgba(54, 162, 235, 1)', // bright blue
-// //         backgroundColor: 'rgba(54, 162, 235, 0.2)', // light blue
-// //         fill: true,
-// //       },
-// //     ],
-// //   };
-
-// //   const chartOptions = {
-// //     responsive: true,
-// //     plugins: {
-// //       legend: {
-// //         display: true,
-// //         labels: {
-// //           color: 'black', // white labels for better visibility
-// //         },
-// //       },
-// //       title: {
-// //         display: true,
-// //         text: 'Temperature Trends',
-// //         color: 'black', // white title for better visibility
-// //       },
-// //     },
-// //     scales: {
-// //       x: {
-// //         ticks: {
-// //           color: 'black', // white labels for better visibility
-// //         },
-// //       },
-// //       y: {
-// //         ticks: {
-// //           color: 'black', // white labels for better visibility
-// //         },
-// //       },
-// //     },
-// //   };
-
-// //   return (
-// //     <>
-// //       <div className=''>
-// //         <div>
-// //           <div className='py-6 md:max-w-5xl mx-auto mb-4 w-full px-4'>
-// //             <div className='flex-1 p-3 text-white'>
-// //               <div className='max-w-sm w-full lg:max-w-full shadow px-6 py-6 rounded-lg mb-6 mt-20 bg-green-300 mx-auto'>
-// //                 {/* Current weather box */}
-// //                 <div className='flex flex-col gap-y-3 mb-5 p-4 bg-blue-950 bg-opacity-20 rounded-lg border border-white border-opacity-40'>
-// //                   <div>
-// //                     <p>{current.weather}</p>
-// //                     <p>{current.date}</p>
-// //                   </div>
-// //                   <div className='flex items-center gap-3'>
-// //                     <img
-// //                       src='https://cdn.discordapp.com/attachments/424848293135253504/1267570904385323110/image.png?ex=66a944e5&is=66a7f365&hm=c2e8c8cc5d8c0d46ec84ba1e13a574b6238e0dcebca69969e37275863836d0f8&'
-// //                       alt=''
-// //                       width='50'
-// //                     />
-// //                     <h3 className='text-3xl'>{current.temperature}°</h3>
-// //                     <div>
-// //                       <p>{current.weather}</p>
-// //                       <p>Feels like {current.temperature}°</p>
-// //                     </div>
-// //                   </div>
-// //                   <p>The skies will be mostly clear. The low will be {current.lowTemperature}°.</p>
-// //                   <div className='flex flex-wrap gap-5'>
-// //                     <div>
-// //                       <p>Air quality</p>
-// //                       <p>46</p>
-// //                     </div>
-// //                     <div>
-// //                       <p>Wind</p>
-// //                       <p>{current.windspeed}</p>
-// //                     </div>
-// //                     <div>
-// //                       <p>Humidity</p>
-// //                       <p>{current.humidity}%</p>
-// //                     </div>
-// //                     <div>
-// //                       <p>Visibility</p>
-// //                       <p>6.2mi</p>
-// //                     </div>
-// //                     <div>
-// //                       <p>Pressure</p>
-// //                       <p>29.91 in</p>
-// //                     </div>
-// //                     <div>
-// //                       <p>Dew point</p>
-// //                       <p>74°</p>
-// //                     </div>
-// //                   </div>
-// //                 </div>
-// //                 <div>
-// //                   <h2 className='text-lg font-bold'>3 day forecast</h2>
-// //                   <div className='flex flex-wrap gap-2 w-full'>
-// //                     <div className='flex-1 p-2 bg-blue-950 bg-opacity-20 rounded-lg border border-white border-opacity-40'>
-// //                       <p>Today</p>
-// //                       <div className='flex justify-between'>
-// //                         <div>
-// //                           <p>⛅</p>
-// //                           <p>{current.temperature}°</p>
-// //                         </div>
-// //                         <div className='flex flex-col items-end'>
-// //                           <p>{current.weather}</p>
-// //                           <p>1%</p>
-// //                         </div>
-// //                       </div>
-// //                     </div>
-// //                     {forecast.map((e: any, idx: any) => (
-// //                       <div
-// //                         key={idx}
-// //                         className='flex-1 p-2 bg-blue-950 bg-opacity-20 rounded-lg border border-white border-opacity-40'
-// //                       >
-// //                         <p>{e.day}</p>
-// //                         <div className='flex gap-3 justify-center items-center'>
-// //                           <p>⛅</p>
-// //                           <div>
-// //                             <p>{e.highTemperature}°</p>
-// //                             <p>{e.lowTemperature}°</p>
-// //                           </div>
-// //                         </div>
-// //                       </div>
-// //                     ))}
-// //                   </div>
-// //                 </div>
-// //               </div>
-// //                 {/* Chart */}
-// //             </div>
-// //                 <div className='mt-6 bg-gray-200 rounded-xl'>
-// //                   <h2 className='text-lg font-bold text-green-800 ml'>Temperature Trends</h2>
-// //                   <div className='overflow-auto'>
-// //                     <Line data={chartData} options={chartOptions} />
-// //                   </div>
-// //                 </div>
-// //           </div>
-// //         </div>
-// //       </div>
-// //     </>
-// //   );
-// // }
-
-// // export default Page;
-"use client"
+"use client";
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import logo from '../../../../public/image/WeatherIcons/clear-day.svg'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import logo from '../../../../public/image/WeatherIcons/clear-day.svg';
+
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 function Page() {
@@ -199,18 +21,21 @@ function Page() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Sousse%20Tunisia?unitGroup=metric&include=days%2Ccurrent%2Calerts&key=9PBBQHHUNP77LD88TPFGWX7L5&contentType=json", {
-      method: "GET",
-      headers: {}
-    })
-      .then(response => {
+    fetch(
+      "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Sousse%20Tunisia?unitGroup=metric&include=days%2Ccurrent%2Calerts&key=9PBBQHHUNP77LD88TPFGWX7L5&contentType=json",
+      {
+        method: "GET",
+        headers: {},
+      }
+    )
+      .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
         return response.json();
       })
-      .then(data => setData(data))
-      .catch(error => setError(error.message));
+      .then((data) => setData(data))
+      .catch((error) => setError(error.message));
   }, []);
 
   if (error) {
@@ -223,7 +48,7 @@ function Page() {
 
   const current = data.currentConditions;
   const forecast = data.days.slice(1, 7); // Get the next 7 days forecast
-  console.log([current,forecast])
+
   const chartData = {
     labels: forecast.map((day: any) => day.datetime),
     datasets: [
@@ -282,11 +107,12 @@ function Page() {
               <p>{current.conditions}</p>
               <p>{current.datetime}</p>
             </div>
-            <div className='flex items-center gap-3'>
+            <div className='flex flex-col md:flex-row items-center gap-3'>
               <Image
                 src={require(`../../../../public/image/WeatherIcons/${current.icon}.svg`)}
                 alt='Weather Icon'
                 width='50'
+                className='w-16 h-16 md:w-20 md:h-20'
               />
               <h3 className='text-3xl'>{current.temp}°</h3>
               <div>
@@ -325,7 +151,7 @@ function Page() {
                 <p>Today</p>
                 <div className='flex justify-between'>
                   <div>
-                    <p>⛅</p>
+                    <Image src={require(`../../../../public/image/WeatherIcons/${current.icon}.svg`)} alt='' width='50' className='w-8 h-8 md:w-16 md:h-16'/>
                     <p>{current.temp}°</p>
                   </div>
                   <div className='flex flex-col items-end'>
@@ -340,8 +166,8 @@ function Page() {
                   className='flex-1 p-2 bg-blue-950 bg-opacity-20 rounded-lg border border-white border-opacity-40'
                 >
                   <p>{day.datetime}</p>
-                  <div className='flex gap-3 justify-center items-center'>
-                    <Image src ={require(`../../../../public/image/WeatherIcons/${day.icon}.svg`)} alt='' width='50'/>
+                  <div className='flex flex-col md:flex-row gap-3 justify-center items-center'>
+                    <Image src={require(`../../../../public/image/WeatherIcons/${day.icon}.svg`)} alt='' width='50' className='w-8 h-8 md:w-16 md:h-16'/>
                     <div>
                       <p>{day.tempmax}°</p>
                       <p>{day.tempmin}°</p>
