@@ -1,4 +1,4 @@
-
+import WeatherSection from "../../app/dash/weather"
 
 const dashHeroSection = () => {
   return (
@@ -10,6 +10,9 @@ const dashHeroSection = () => {
         </div>
         <div className="hidden   lg:col-span-5 lg:flex">
         </div>                
+    </div>
+    <div className="">
+      <WeatherSection />
     </div>
 </section>
 

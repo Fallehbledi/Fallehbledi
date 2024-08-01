@@ -89,3 +89,10 @@ model post{
   farmerId  Int    
   farmer        farmer @relation(fields: [farmerId], references: [id])
 }
+
+model news {
+  id              Int @id @default(autoincrement())
+  title           String 
+  content         String
+  image           String
+}

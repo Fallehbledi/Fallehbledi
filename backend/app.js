@@ -6,6 +6,7 @@ const routersAuthfarmer = require("./routes/Authfarmer.js")
 const routerFarmtools = require("./routes/FarmerTools.js")
 const {getWeather} = require('./WeatherAPI/Weather.js')
 const routercommunity=require("./routes/community.js")
+const newsRouter = require ('./routes/News.js')
 //Declare the express app
 const cors = require("cors")
 
@@ -25,6 +26,7 @@ app.use('/api/farmer',routersAuthfarmer)
 app.use('/api/tools', routerFarmtools)
 app.use('/api/post',routercommunity)
 app.get('/weather',getWeather)
+app.use('/news', newsRouter)
 
 
 //Listen for requests  :

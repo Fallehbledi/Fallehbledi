@@ -1,38 +1,38 @@
 {
     "prices": [
       {
-        "title": "PASTEQUES",
-        "price": 3.600,
+        "title": "",
+        "price": "3.600 TND",
         "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
 
       },
       {
         "title": "TOMATES",
-        "price": 0.800,
+        "price": "0.800 TND",
         "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
 
       },
       {
         "title": "SPARES",
-        "price": 0.600,
+        "price": "0.600 TND",
         "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
 
       },
       {
         "title": "PECHES",
-        "price": 8.000,
+        "price": "8.000 TND",
         "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
 
       },
       {
         "title": "POIVRONS DOUX",
-        "price": 4.000,
+        "price": "4.000 TND",
         "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
 
       },
       {
         "title": "MAQUEREAUX",
-        "price": 2.000,
+        "price": "2.000 TND",
         "image":"https://png.pngtree.com/png-vector/20240406/ourlarge/pngtree-beautiful-tomato-transparent-image-png-image_12267310.png"
 
       }
