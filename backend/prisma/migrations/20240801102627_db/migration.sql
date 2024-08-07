@@ -13,6 +13,7 @@ CREATE TABLE "farmer" (
     "location" TEXT NOT NULL,
     "profileImage" TEXT,
     "status" "status" NOT NULL DEFAULT 'pending',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "farmer_pkey" PRIMARY KEY ("id")
 );
@@ -82,9 +83,21 @@ CREATE TABLE "post" (
     "title" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "image" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "farmerId" INTEGER NOT NULL,
 
     CONSTRAINT "post_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "comment" (
+    "id" SERIAL NOT NULL,
+    "comment" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "postId" INTEGER NOT NULL,
+    "farmerId" INTEGER NOT NULL,
+
+    CONSTRAINT "comment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -102,3 +115,9 @@ CREATE UNIQUE INDEX "farmer_email_key" ON "farmer"("email");
 
 -- AddForeignKey
 ALTER TABLE "post" ADD CONSTRAINT "post_farmerId_fkey" FOREIGN KEY ("farmerId") REFERENCES "farmer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "comment" ADD CONSTRAINT "comment_postId_fkey" FOREIGN KEY ("postId") REFERENCES "post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "comment" ADD CONSTRAINT "comment_farmerId_fkey" FOREIGN KEY ("farmerId") REFERENCES "farmer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

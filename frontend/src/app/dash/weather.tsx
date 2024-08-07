@@ -1,7 +1,13 @@
 import { error } from "console";
 
 async function getData() {
-    const res = await fetch('http://127.0.0.1:5000/weather');
+    const res = await fetch(
+      "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Sousse%20Tunisia?unitGroup=metric&include=days%2Ccurrent%2Calerts&key=9PBBQHHUNP77LD88TPFGWX7L5&contentType=json",
+      {
+        method: "GET",
+        headers: {},
+      }
+    )
     if (!res.ok) {
       console.log(error)
       throw new Error('Failed to fetch data');
@@ -11,28 +17,49 @@ async function getData() {
   
   export default async function Page() {
     const data = await getData(); 
-    const current = data[0];  
+    const current = data.currentConditions; 
     console.log(data)
     return (
-      <div className='flex flex-col gap-y-3 mb-5 p-4 w-3/5 bg-blue-950 bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-lg border border-white border-opacity-40'>
-      <div>
-        <p>{current.weather}</p>
-        <p>{current.date}</p>
-      </div>
-      <div className='flex items-center gap-3'>
-        {/* icon here */}
-        <img
-          src='https://cdn.discordapp.com/attachments/424848293135253504/1267570904385323110/image.png?ex=66a944e5&is=66a7f365&hm=c2e8c8cc5d8c0d46ec84ba1e13a574b6238e0dcebca69969e37275863836d0f8&'
-          alt=''
-          width='50'
-        />
-        <h3>36°</h3>
-        <div>
-          <p>{current.weather}</p>
-          <p>Feels like 36°</p>
-        </div>
-      </div>
-     
-      </div>
-    );
-  }
+      <div className='flex flex-col gap-y-3 mb-5 p-4 bg-blue-950 bg-opacity-20 rounded-lg border border-white border-opacity-40'>
+            <div>
+              <p>{current.conditions}</p>
+              <p>{current.datetime}</p>
+            </div>
+            <div className='flex flex-col md:flex-row items-center gap-3'>
+              <img
+                src={require(`../../../../public/image/WeatherIcons/${current.icon}.svg`)}
+                alt='Weather Icon'
+                width='50'
+                className='w-16 h-16 md:w-20 md:h-20'
+              />
+              <h3 className='text-3xl'>{current.temp}°</h3>
+              <div>
+                <p>{current.conditions}</p>
+                <p>Feels like {current.feelslike}°</p>
+              </div>
+            </div>
+            <p>The skies will be mostly clear. The low will be {current.tempmin}°.</p>
+            <div className='flex flex-wrap gap-5'>
+              <div>
+                <p>Wind</p>
+                <p>{current.windspeed} km/h</p>
+              </div>
+              <div>
+                <p>Humidity</p>
+                <p>{current.humidity}%</p>
+              </div>
+              <div>
+                <p>Visibility</p>
+                <p>{current.visibility} km</p>
+              </div>
+              <div>
+                <p>Pressure</p>
+                <p>{current.pressure} hPa</p>
+              </div>
+              <div>
+                <p>Dew point</p>
+                <p>{current.dew}</p>
+              </div>
+            </div>
+          </div>
+  )}

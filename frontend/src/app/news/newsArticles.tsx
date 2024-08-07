@@ -1,24 +1,24 @@
 import Image from 'next/image';
 
-interface News {
-    id: number;
-    title: string;
-    content: string;
-    image: string;
-}
-
-async function getData(): Promise<News[]> {
-    const res = await fetch('http://127.0.0.1:5000/news/getAllNews',{
-        next : {revalidate: 3600}
-    });
-    if (!res.ok) {
-        throw new Error('Failed to fetch data');
+    interface News {
+        id: number;
+        title: string;
+        content: string;
+        image: string;
     }
-    return res.json();
-}
 
-const NewsArticles = async () => {
-    const news: News[] = await getData();
+    async function getData(): Promise<News[]> {
+        const res = await fetch('http://127.0.0.1:5000/news/getAllNews',{
+            next : {revalidate: 3600}
+        });
+        if (!res.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        return res.json();
+    }
+
+    const NewsArticles = async () => {
+        const news: News[] = await getData();
     console.log(news)
 
     return (

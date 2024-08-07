@@ -37,7 +37,8 @@ module.exports = {
             where: { farmerId: Number(req.params.id) },
             include: {
                 farmer : true,
-              }
+                comments:true
+              },
           });
           res.status(200).json(post);
         } catch (error) {

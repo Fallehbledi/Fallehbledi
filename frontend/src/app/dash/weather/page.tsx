@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
@@ -37,7 +37,7 @@ function Page() {
       .then((data) => setData(data))
       .catch((error) => setError(error.message));
   }, []);
-
+  console.log(data)
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -100,11 +100,11 @@ function Page() {
 
   return (
     <div className='py-6 md:max-w-5xl mx-auto mb-4 w-full px-4'>
-      <div className='flex-1 p-3 text-white'>
-        <div className='max-w-sm w-full lg:max-w-full shadow px-6 py-6 rounded-lg mb-6 mt-20 bg-green-300 mx-auto'>
-          <div className='flex flex-col gap-y-3 mb-5 p-4 bg-blue-950 bg-opacity-20 rounded-lg border border-white border-opacity-40'>
+      <div className='flex-1 p-3 text-black'>
+        <div className='max-w-sm w-full lg:max-w-full shadow px-6 py-6 rounded-lg mb-6 mt-20 bg-white mx-auto'>
+          <div className='flex flex-col gap-y-3 mb-5 p-4 bg-blue-500 bg-opacity-70 rounded-lg border border-white border-opacity-40'>
             <div>
-              <p>{current.conditions}</p>
+              <p>{data.address}</p>
               <p>{current.datetime}</p>
             </div>
             <div className='flex flex-col md:flex-row items-center gap-3'>
@@ -131,8 +131,8 @@ function Page() {
                 <p>{current.humidity}%</p>
               </div>
               <div>
-                <p>Visibility</p>
-                <p>{current.visibility} km</p>
+                <p>Wind Direction</p>
+                <p>{current.winddir} km/h</p>
               </div>
               <div>
                 <p>Pressure</p>
@@ -147,7 +147,7 @@ function Page() {
           <div>
             <h2 className='text-lg font-bold'>7 days forecast</h2>
             <div className='flex flex-wrap gap-2 w-full'>
-              <div className='flex-1 p-2 bg-blue-950 bg-opacity-20 rounded-lg border border-white border-opacity-40'>
+              <div className='flex-1 p-2 bg-blue-500 bg-opacity-70 rounded-lg border border-white border-opacity-40'>
                 <p>Today</p>
                 <div className='flex justify-between'>
                   <div>
@@ -163,11 +163,11 @@ function Page() {
               {forecast.map((day: any, idx: any) => (
                 <div
                   key={idx}
-                  className='flex-1 p-2 bg-blue-950 bg-opacity-20 rounded-lg border border-white border-opacity-40'
+                  className='flex-1 p-2 bg-blue-900 bg-opacity-70 rounded-lg border border-white border-opacity-40'
                 >
                   <p>{day.datetime}</p>
                   <div className='flex flex-col md:flex-row gap-3 justify-center items-center'>
-                    <Image src={require(`../../../../public/image/WeatherIcons/${day.icon}.svg`)} alt='' width='50' className='w-8 h-8 md:w-16 md:h-16'/>
+                    <Image src={require(`../../../../public/image/WeatherIcons/${day.icon}.svg`)} alt='' width='50' className='w-6 h-6 md:w-16 md:h-16'/>
                     <div>
                       <p>{day.tempmax}°</p>
                       <p>{day.tempmin}°</p>
@@ -179,8 +179,8 @@ function Page() {
             </div>
           </div>
         </div>
-        <div className='mt-6 bg-gray-200 rounded-xl'>
-          <h2 className='text-lg font-bold text-green-800 ml-8'>Temperature Trends</h2>
+        <div className='mt-6 bg-green-100 rounded-xl'>
+          <h2 className='text-lg font-bold text-green-800 ml-8 p-2'>Temperature Trends</h2>
           <div className='overflow-auto'>
             <Line data={chartData} options={chartOptions} />
           </div>
