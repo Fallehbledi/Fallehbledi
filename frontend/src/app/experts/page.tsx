@@ -79,7 +79,7 @@ const page = () => {
                         className="w-full text-gray-800 rounded-md py-2.5 px-4 border text-sm outline-blue-500" />
                     <input type='text' placeholder='Subject'
                         className="w-full text-gray-800 rounded-md py-2.5 px-4 border text-sm outline-blue-500" />
-                    <textarea placeholder='Message' rows="6"
+                    <textarea placeholder='Message' rows={6}
                         className="w-full text-gray-800 rounded-md px-4 border text-sm pt-2.5 outline-blue-500"></textarea>
                     <button type='button'
                         className="text-white bg-blue-500 hover:bg-blue-600 rounded-md text-sm px-4 py-3 w-full !mt-6">Send</button>
