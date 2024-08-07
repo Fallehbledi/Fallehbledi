@@ -24,7 +24,9 @@ model farmer {
   location  String
   profileImage String?
   status    status @default(pending)
+  createdAt  DateTime   @default(now())
    posts post[]
+   comments comment[]
 
   
   // isVerified Boolean  @default(false)
@@ -86,8 +88,20 @@ model post{
   title           String
   content         String
   image           String
+  createdAt  DateTime   @default(now())
   farmerId  Int    
   farmer        farmer @relation(fields: [farmerId], references: [id])
+  comments comment[]
+}
+model comment{
+id              Int @id @default(autoincrement()) 
+comment String 
+createdAt  DateTime   @default(now())
+postId Int
+post post  @relation(fields: [postId], references: [id])
+farmerId  Int 
+farmer        farmer @relation(fields: [farmerId], references: [id])
+
 }
 
 model news {

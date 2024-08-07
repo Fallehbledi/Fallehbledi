@@ -16,8 +16,8 @@ const OneProduct = () => {
 
     return (
 
-        <section className="relative ">
-        <div className="w-full mx-auto px-4 sm:px-6 lg:px-0 ">
+        <section className=" ">
+        <div className="w-full mx-auto  px-4 sm:px-6 lg:px-0 ">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mx-auto max-md:px-2  ">
                 <div className="img">
                     <div className="img-box h-full max-lg:mx-auto ">
@@ -28,13 +28,13 @@ const OneProduct = () => {
                 <div
                     className="data w-full lg:pr-8 pr-0 xl:justify-start justify-center flex items-center max-lg:pb-10 xl:my-2 lg:my-5 my-0">
                     <div className="data w-full max-w-xl">
-                        <p className="mt-[6rem] text-lg font-medium leading-8 text-green-600 mb-4">category  /&nbsp;{category }
+                        <p className="mt-[6rem] text-lg font-medium leading-8 text-[#058f1a] mb-4">Category  /&nbsp;{category }
                         </p>
                         <h2 className="font-manrope font-bold text-3xl leading-10 text-gray-900 mb-2 capitalize">{name}</h2>
                         <div className="flex flex-col sm:flex-row sm:items-center mb-6">
                             <h6
                                 className="font-manrope font-semibold text-2xl leading-9 text-gray-900 pr-5 sm:border-r border-gray-200 mr-5">
-                               {price} DNT</h6>
+                               {price} TND</h6>
                             <div className="flex items-center gap-2">
                                 <div className="flex items-center gap-1">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -109,8 +109,7 @@ const OneProduct = () => {
 
                         </div>
                         <p className="text-gray-800 text-base font-normal mb-5">
-                        🌻  {description} <a href="#"
-                                className="text-green-900">More....</a>
+                          {description}
                         </p>
                         <ul className="grid gap-y-4 mb-8">
                             
@@ -175,9 +174,9 @@ const OneProduct = () => {
                                 </button>
                             </div>
                             <button
-                                className="group py-4 px-5 rounded-full bg-green-500 text-white font-semibold text-lg w-full flex items-center justify-center gap-2 transition-all duration-500 hover:bg-green-700">
+                                className="group py-4 px-5 rounded-full bg-[#058f1a] text-white font-semibold text-lg w-full flex items-center justify-center gap-2 transition-all duration-500 hover:bg-green-700">
                                 
-                                🛒   Add to cart</button>
+                              Add to cart</button>
                         </div>
                         <div className="flex items-center gap-3">
                             <button
@@ -192,7 +191,7 @@ const OneProduct = () => {
 
                             </button>
                             <button
-                                className="text-center w-full px-5 py-4 rounded-[100px] bg-green-900 flex items-center justify-center font-semibold text-lg text-white shadow-sm transition-all duration-500 hover:bg-green-700 hover:shadow-green-400">
+                                className="text-center w-full px-5 py-4 rounded-[100px] bg-[#058f1a] flex items-center justify-center font-semibold text-lg text-white shadow-sm transition-all duration-500 hover:bg-green-700 hover:shadow-green-400">
                                 Buy Now
                             </button>
                         </div>
