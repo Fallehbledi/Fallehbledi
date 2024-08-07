@@ -2,15 +2,12 @@
 import Image from 'next/image'
 import Logo from '../../../public/image/falleh.png'
 import Link from 'next/link'
-import MobileMenu from './MobileMenu'
 import ProfileMenu from './profileMenu'
-import ProfileImage from '../../../public/image/blank-profile-picture-973460_960_720.webp'
-import {cookies} from 'next/headers'
+import PricesBar from '../dash/PricesBar'
 
-
-const Navbar = () => {
-const GetUser =cookies().get("Authorization")
-const user = GetUser !== undefined ? GetUser.value : null;
+import getUser from '@/helpers/getUser'
+const Navbar = async () => {
+const user = await getUser()
 
   return (
     <header className="fixed w-full">
@@ -27,9 +24,9 @@ const user = GetUser !== undefined ? GetUser.value : null;
                 <Link href="/signup" className="text-white bg-[#058f1a] focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm  lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0">Signup</Link>
                 </>
                 }
-            <div className="">
-            <ProfileMenu/>
-            </div>
+            {user &&<div className="">
+            <ProfileMenu user={user} />
+            </div>}
                 
         <button   type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden " >
                         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
@@ -50,12 +47,22 @@ const user = GetUser !== undefined ? GetUser.value : null;
                         <li>
                             <Link href="/community" className="block py-2 pl-3 pr-4 text-[16px] text-white bg-[#058f1a] rounded lg:bg-transparent lg:text-[#000] lg:p-0 hover:text-[#058f1a]">Community</Link>
                         </li>
+                        {user&&
+                        <li>
+                        <Link href="/marketprices" className="block py-2 pl-3 pr-4 text-[16px] text-white bg-[#058f1a] rounded lg:bg-transparent lg:text-[#000] lg:p-0 hover:text-[#058f1a]">Market Prices</Link>
+                    </li>}
+                    {user&&
+                        <li>
+                        <Link href="/weather" className="block py-2 pl-3 pr-4 text-[16px] text-white bg-[#058f1a] rounded lg:bg-transparent lg:text-[#000] lg:p-0 hover:text-[#058f1a]">Weather</Link>
+                    </li>}
+                        {!user && 
                         <li>
                             <Link href="about" className="block py-2 pl-3 pr-4 text-[16px] text-white bg-[#058f1a] rounded lg:bg-transparent lg:text-[#000] lg:p-0 hover:text-[#058f1a]">About</Link>
-                        </li>
+                        </li>}
+                        {!user &&
                         <li>
                             <Link href="/contact" className="block py-2 pl-3 pr-4 text-[16px]  text-white bg-[#058f1a] rounded lg:bg-transparent lg:text-[#000] lg:p-0 hover:text-[#058f1a]">Contact</Link>
-                        </li>
+                        </li>}
                         
                     </ul>
                 </div>

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/navbar/Navbar"
 import { ActiveProvider } from '../components/context/activeContext';
+import {Toaster} from 'react-hot-toast'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +21,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ActiveProvider>
-        <Navbar/>
-        {children}
+          <Navbar />
+          <Toaster
+  containerStyle={{
+    top:50 ,
+    left:500,
+  }}
+/>
+          {children}
         </ActiveProvider>
-        </body>
+      </body>
     </html>
   );
 }
