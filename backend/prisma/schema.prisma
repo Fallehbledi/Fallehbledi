@@ -27,8 +27,6 @@ model farmer {
   createdAt  DateTime   @default(now())
    posts post[]
    comments comment[]
-
-  
   // isVerified Boolean  @default(false)
 }
 
@@ -41,12 +39,12 @@ enum status {
 
 
 model experts {
-  id       Int @id @default(autoincrement())
+  id            Int @id @default(autoincrement())
   firstName     String
-  lastName     String
+  lastName      String
   background    String
-  phone        Int
-  certificate  String
+  phone         Int
+  certificate   String
 }
 
 model farmtools {
@@ -110,3 +108,22 @@ model news {
   content         String
   image           String
 }
+
+
+model message {
+  id              Int @id @default(autoincrement())
+  content         []
+  sender          farmer @relation(fields: [farmerId], references: [id])
+  receiver        experts @relation(fields: [expertsId], references: [id])
+  roomId          room  @relation(field: [roomId], references : [id])
+}
+
+model room {
+  id              Int @id @default(autoincrement())
+  farmerId        Int
+  farmer          farmer @relation(fields: [farmerId], references: [id])
+  expertsId       Int
+  experts         experts @relation(fields: [expertsId], references: [id])
+  } 
+
+  
