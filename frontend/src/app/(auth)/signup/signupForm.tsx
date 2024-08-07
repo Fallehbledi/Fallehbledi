@@ -1,39 +1,50 @@
-import axios from 'axios'
-import { redirect } from 'next/navigation';
+'use client'
+import CreateUser from './signUpAction'
+import {toast} from 'react-hot-toast'
+import {redirect} from 'next/navigation'
+import { useState } from 'react'
 const signupForm = () => {
-   
-    const createUser = async (formData: FormData) => {
-        'use server'
-        var responseMsg = ''
-        try {
-          const user = {
-            firstName: formData.get("firstName"),
-            lastName: formData.get("lastName"),
-            email: formData.get("email"),
-            password: formData.get("password"),
-            adress: formData.get("adress"),
-            phone: '54555454',
-            location: "tunis",
-          };
-          const response = await axios.post("http://127.0.0.1:5000/api/farmer/signup",user);
-          if(response.data.message === 'User registered successfully'){
-              responseMsg = response.data.message;
-          
-}
-          
-          
-        } 
-        catch (error) {
+  const [errors, setErrors] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    adress: '',
+    location: '',
+  })
+ const HandleSignUp = async(formData:FormData)=>{
+  const user = {
+    firstName: formData.get("firstName"),
+    lastName: formData.get("lastName"),
+    email: formData.get("email"),
+    password: formData.get("password"),
+    adress: formData.get("adress"),
+    phone: '54555454',
+    location: "tunis",
+};
+     const result = await CreateUser(formData)
+     console.log(result);
+     
+     if (result === 'User registered successfully') {
+     toast.success(result,{
+      duration: 5000,
+    })
+      redirect('/login')
+     }
+     else {
+      result.map((elem:any)=>{
+        if(elem.value === ''){
+         toast.error(elem.msg,{
+            duration: 5000,
+          })
         }
-        if (responseMsg==='User registered successfully'){
-            
-            redirect('/login')
-        }
+      })
+     
+     }
         
-      };
-    
-  return (
-    <form action={createUser} className="max-w-sm mx-auto mt-28 flex flex-col ">
+    }
+      return (
+        <form action={HandleSignUp.bind(null)} className="max-w-sm mx-auto mt-28 flex flex-col ">
       <div className="grid md:grid-cols-2 md:gap-6">
         <div className="mb-5">
           <label className="block mb-2  text-sm font-medium text-gray-900 ">

@@ -2,8 +2,6 @@ const express = require("express")
 const router = express.Router()
 const SignIn = require('../controllers/Auth/FarmerSignIn')
 const {Register} = require("../controllers/Auth/FarmerSignUp")
-
-
 const {GetOneFarmer,updateProfile} = require("../controllers/Farmer.js");
 
 router.get("/:id",GetOneFarmer)

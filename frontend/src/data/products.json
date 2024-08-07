@@ -19,21 +19,12 @@
     },
     {
       "id": 3,
-      "name": " water Fertilizer",
+      "name": " Water Fertilizer",
       "description": "fertilizer, natural or artificial substance containing the chemical elements that improve growth and productiveness of plants.",
       "price": 76,
       "image": "https://images.finegardening.com/app/uploads/2015/07/14012933/FG164-water-fertilizers-main-700x531-700x531.jpg",
       "category": "fertilizer",
       "quantity": 657
-    },
-    {
-      "id": 4,
-      "name": " water Fertilizer",
-      "description": "fertilizer, natural or artificial substance containing the chemical elements that improve growth and productiveness of plants.",
-      "price": 136,
-      "image": "https://m.media-amazon.com/images/I/512-G1TAfzL._AC_UF1000,1000_QL80_.jpg",
-      "category": "fertilizer",
-      "quantity": 153
     },
     {
       "id": 5,

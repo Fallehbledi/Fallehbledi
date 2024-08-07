@@ -26,7 +26,7 @@ module.exports = {
      updateProfile : async (req, res) => {
       try {
         const { id } = req.params;
-        const { firstName, lastName, phone, address, location } = req.body;
+        const { firstName, lastName, phone, address, location ,profileImage } = req.body;
     
         const profile = await prisma.farmer.update({
           where: { id: Number(id) },
@@ -36,6 +36,7 @@ module.exports = {
             phone,
             address,
             location,
+            profileImage
           },
         });
     

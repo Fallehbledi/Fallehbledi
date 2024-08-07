@@ -22,9 +22,10 @@ exports.getComment = async (req, res) => {
   
     try {
       const comment = await prisma.comment.findUnique({
-        where: { id: parseInt(req.params.id) },
+        where: { postId:parseInt(req.params.id) },
         include: {
             farmer : true,
+            post: true
           }
       });
   
@@ -34,14 +35,18 @@ exports.getComment = async (req, res) => {
         res.status(404).json({ error: 'Comment not found' });
       }
     } catch (error) {
-      res.status(500).json({ error: 'Error fetching comment' });
+      console.log(error);
+      res.status(500).json(error);
     }
   };
   
   
   exports.getAllComments = async (req, res) => {
     try {
-      const comments = await prisma.comment.findMany();
+      const comments = await prisma.comment.findMany({include: {
+        farmer : true,
+        post: true
+      }});
       res.status(200).json(comments);
     } catch (error) {
       res.status(500).json({ error: 'Error fetching comments' });

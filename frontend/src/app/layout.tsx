@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/navbar/Navbar"
-import Addpost from "../app/community/addpost"
 import { ActiveProvider } from '../components/context/activeContext';
-
-
+import {Toaster} from 'react-hot-toast'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +22,12 @@ export default function RootLayout({
       <body className={inter.className}>
         <ActiveProvider>
           <Navbar />
+          <Toaster
+  containerStyle={{
+    top:50 ,
+    left:500,
+  }}
+/>
           {children}
         </ActiveProvider>
       </body>
