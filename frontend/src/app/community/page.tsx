@@ -1,41 +1,76 @@
-
-import Link from 'next/link';
-import Image from "next/image"
-import Icon from "../../../public/image/Team spirit-pana.png"
-import Addpost from "./addpost";
-import Moredetail from "./moredetail";
-import Addcomment from './addcomment';
+import PostCard from './PostCard'
+import PostBarSection from './postBarSection';
+import Link from 'next/link'
+import GetUser from '../../helpers/getUser'
+import CommImage from '../../../public/image/Status update.gif'
+import Image from 'next/image'
+import CommunityFeatures from './communityFeatures';
 type SearchParamProps = {
   searchParams: Record<string, string> | null | undefined;
 }
-interface posts {
-  id: number;
-  firstName:string;
-  lastName:string
-  title:string;
-  content:string;
-  image:string;
-  profileImage:string
-  createdAt:string
-}
-async function getData() {
-  const res = await fetch(`http://127.0.0.1:5000/api/post/getfarmerpost/3`, { next: { revalidate: 1 } })
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
-  return res.json()
-}
+
+
 export default async function Page({ searchParams }: SearchParamProps) {
   const show = searchParams?.show;
-  // const { searchParams } = props;
-	// const showModal = searchParams?.modal === "true";
-	// const postId = searchParams?.id;
-  const data = await getData()
-   console.log(data);
-   
+  const user = await GetUser()
   return (
-    <div className=" min-h-screen flex flex-col items-center">
-           <div className="flex">
+    <>
+    {!user &&
+    <div className="">
+    <section className="bg-white flex items-center justify-center px-20 ">
+    <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 lg:grid-cols-12 lg:ml-2">
+        <div className="mr-auto place-self-center lg:col-span-7">
+            <h1 className="heroSection max-w-2xl mb-4 text-3xl text-gray-900 font-extrabold md:text-5xl xl:text-5xl ">Share Your thoughts in our  <span className='text-[#058f1a] mt-10'> Community </span> designed to bring farmers together like never before! 🌾🤝</h1>
+            <p className="heroSection  max-w-2xl mb-6 font-light text- lg:mb-8 md:text-lg lg:text-xl ">Join us today and become a part of our growing community. Together, we can make farming more productive and sustainable! 🌱</p>
+            <div className="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+                <Link href="/signup" className="inline-flex items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-[#fff] bg-[#058f1a] rounded-lg sm:w-auto ">
+            Get Started
+                </Link> 
+                
+            </div>
+        </div>
+        <div className="hidden   lg:col-span-5 lg:flex">
+            <Image src={CommImage} width={450} height={200}  alt="hero image" className=''/>
+        </div>                
+    </div>
+</section>
+<CommunityFeatures />
+</div>
+}
+    {user && 
+    
+      <div className="py-[7rem] flex flex-col items-center  justify-center    ">
+      <div className="writepost">
+      <div className=" flex flex-col bg-white  ">
+        <div className="">
+            <h5 className="font-semibold px-4 py-2 text-gray-900">Share your thoughts</h5>
+        </div>
+    <div className="bg-white rounded-lg  p-4 flex items-center space-x-4">
+    <img className="w-12 h-12 rounded-full" src={user.profileImage}/>
+    <div className="flex-1 bg-gray-100 hover:bg-gray-200 rounded-full ">
+            <Link href='/community?show=true'>
+            <h1 className=" p-2 border cursor-pointer text-gray-500 w-[16rem] md:w-[32rem] border-gray-300 rounded-full ">
+            What's New , {user.firstName} {user.lastName} ?
+            </h1>
+            </Link>
+        </div>
+    </div>
+</div>
+{show&& <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 ">
+<PostBarSection/>
+</div>}
+      </div>
+      <h5 className='font-semibold text-gray-900 '>Lastes Posts </h5>
+      <div className="py-6">
+        <PostCard/>
+      </div>
+      </div>}
+      </>
+  )
+}
+
+    {/*<div className=" min-h-screen flex flex-col items-center">
+           <div className=" hidden">
            <div className="pt-32 pb-8 ">
              <h1 className="text-4xl font-semibold">Express Your Opinion and Thoughts</h1>
             <p className="text-[16px] font-medium mt-2 w-[44rem]">
@@ -49,87 +84,18 @@ export default async function Page({ searchParams }: SearchParamProps) {
            <div className="w-full max-w-5xl p-4 flex-grow flex justify-center items-center">
              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
                <div className="md:col-span-2">
-                 <div className="bg-white p-4 rounded-lg shadow flex justify-between items-center mb-4">
-                   <h2 className="text-lg text-[#058f1a] font-semibold">Conversations</h2>
-                   <h2 className="text-lg font-semibold">Categories</h2>
+                 <div className="writepost">
+                  <div className="w-full ">
+                  <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+    <span className="font-medium text-gray-600 dark:text-gray-300">JL</span>
+</div>
+                  </div>
                  </div>
-    
-                 {/* <div className="space-y-4">
-                   {data.map((post:posts) => (
-                     <div key={post.id} className="bg-white p-4 rounded-lg shadow">
-                       <div className="flex items-start space-x-4">
-                        
-                         <img
-                           src={post.profileImage}
-                           alt="User Avatar"
-                           className="w-12 h-12 rounded-full object-cover"
-                         />
-                         <div>
-                         <p className="text-lg font-semibold">{post.firstName}</p>
-                         </div>
-                         <div>
-                           
-                           <p className="text-sm font-medium text-gray-500">
-                             {post.title}
-                           </p>
-                          <p className="text-gray-700">{post.content}</p>
-                          <img
-                           src={post.image}
-                           alt="User Avatar"
-                           className="w-12 h-12  object-cover"
-                         />
-                        </div>
-                      </div>
-                     </div>
-                     
-                  ))}
-                </div> */}
                 {data.map((post:posts) => (
-                <div className="" key={post.id}>
-        <div className="bg-white shadow-md rounded-md max-w-xl mx-auto mt-5">
-          <div className="p-4 flex items-center">
-            <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
-            <div className="ml-3">
-              <div className="text-sm font-medium text-black">
-                
-              </div>
-            </div>
-          </div>
-          <div className="px-4 pb-4 text-black text-base">
-            {post.title}
-          </div>
-          <div className="relative">
-            <img
-              src={post.image}
-              alt="Two people looking surprised at an Olympic performance on TV. One is wearing a blue tank top and the other a white shirt."
-              className="w-full"
-            />
-            <div className="absolute bottom-0 left-0 bg-white bg-opacity-75 w-full p-4 text-center">
-              
-              <div className="text-xs text-gray-700">
-                {post.content}
-              </div>
-              <div className="text-xs text-gray-500">
-                Published on {post.createdAt}
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-between items-center p-4 border-t border-gray-200 text-xs text-gray-700">
-            
-            <div className="flex space-x-4">
-            <Link href="community/?show=true">
-              <div className="flex items-center space-x-2">
-                <i className="far fa-comment-alt"></i>
-                <span> Comments</span>
-              </div>
-              </Link>
-              {show && <Addcomment />}
-            </div>
-          </div>
-        </div>
-      
-    
-    </div>))}
+                  <div className="">
+
+                  </div>
+                ))}
                 
                </div>
     
@@ -151,8 +117,5 @@ export default async function Page({ searchParams }: SearchParamProps) {
              </div>
              {/* <Addpost/>
              <Addcomment/>
-             <Moredetail/> */}
-           </div>
-         
-      );
-}
+             <Moredetail/> 
+           </div>*/}

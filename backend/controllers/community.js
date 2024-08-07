@@ -24,6 +24,13 @@ module.exports = {
       getallpost:async (req, res) => {
         try {
           const posts = await prisma.post.findMany({
+            include: {
+              farmer : true,
+              comments:true,
+            },
+            orderBy: {
+              id: "desc",
+          },
           });
           res.status(200).json(posts);
         } catch (error) {
@@ -44,5 +51,20 @@ module.exports = {
         } catch (error) {
           res.status(500).json({ error: error.message });
         }
-      }
+      },
+      getOnePost:async (req, res) => {
+        console.log(req.params.id);
+          try {
+            const post = await prisma.post.findMany({
+              where: { id: Number(req.params.id) },
+              include: {
+                  farmer : true,
+                  comments:true
+                },
+            });
+            res.status(200).json(post);
+          } catch (error) {
+            res.status(500).json({ error: error.message });
+          }
+        }
 }

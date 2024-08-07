@@ -41,6 +41,12 @@ const signInFarmer = async (req, res) => {
       const token = jwt.sign(
         {
           userId: farmer.id,
+          firstName:farmer.firstName,
+          lastName:farmer.lastName,
+          email:farmer.email,
+          phoneNumber:farmer.phone,
+          address:farmer.adress,
+          profileImage:farmer.profileImage
         },
         process.env.JWT_SECRET,
         {

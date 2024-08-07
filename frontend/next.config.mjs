@@ -7,6 +7,13 @@ const nextConfig = {
             hostname: 'png.pngtree.com',
             port: '',
           },
+          {
+            protocol: 'https',
+            hostname: 'firebasestorage.googleapis.com',
+            port: '',
+          }
+
+          
         ],
       },
 };
