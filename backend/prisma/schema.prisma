@@ -20,13 +20,15 @@ model farmer {
   email    String  @unique
   password String
   phone    String
-  adress   String
-  location  String
+  adress   String?
+  location  String?
   profileImage String?
   status    status @default(pending)
   createdAt  DateTime   @default(now())
-   posts post[]
-   comments comment[]
+  posts post[]
+  comments comment[]
+  enrollments   enrollement[]
+  room          room[]
   // isVerified Boolean  @default(false)
 }
 
@@ -42,9 +44,18 @@ model experts {
   id            Int @id @default(autoincrement())
   firstName     String
   lastName      String
-  background    String
-  phone         Int
-  certificate   String
+  email         String
+  phone         String
+  bio           String?
+  profileImage  String?
+  password      String
+  role          expertRole    @default(expert)
+  enrollments   enrollement[]
+  room          room[]
+}
+enum expertRole {
+  expert
+  admin
 }
 
 model farmtools {
@@ -108,22 +119,35 @@ model news {
   content         String
   image           String
 }
-
-
 model message {
-  id              Int @id @default(autoincrement())
-  content         []
-  sender          farmer @relation(fields: [farmerId], references: [id])
-  receiver        experts @relation(fields: [expertsId], references: [id])
-  roomId          room  @relation(field: [roomId], references : [id])
+  id        Int      @id @default(autoincrement())
+  message   String
+  createdAt DateTime @default(now())
+  senderId  Int
+  senderName String
+  roomId    String
+  room      room     @relation(fields: [roomId], references: [roomid])
 }
-
 model room {
-  id              Int @id @default(autoincrement())
-  farmerId        Int
-  farmer          farmer @relation(fields: [farmerId], references: [id])
-  expertsId       Int
-  experts         experts @relation(fields: [expertsId], references: [id])
-  } 
-
-  
+  id        Int       @id @default(autoincrement())
+  farmerId  Int
+  farmer    farmer    @relation(fields: [farmerId], references: [id])
+  expertId  Int
+  roomid    String    @unique
+  expert    experts    @relation(fields: [expertId], references: [id])
+  messages  message[]
+}
+model enrollement {
+  id        Int    @id @default(autoincrement())
+  farmerId  Int
+  expertId  Int
+  farmer    farmer @relation(fields: [farmerId], references: [id])
+  expert    experts @relation(fields: [expertId], references: [id])
+  status    enrollmentStatus  @default(INVALID)
+  message   String
+  createdAt DateTime          @default(now()) 
+}
+enum enrollmentStatus {
+  VALID
+  INVALID
+}
