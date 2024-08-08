@@ -1,9 +1,13 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const morgan = require('morgan');
 const app = express();
 const http = require('http');
 app.use(cors());
+app.use(morgan('dev'));
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 const server = http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server, {
@@ -18,26 +22,54 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
-  socket.on('join room', (room) => {
-    socket.join(room);
-    console.log(`User joined room: ${room}`);
-  }); 
-  socket.on('chat message', (msg, room) => {
-    io.to(room).emit('chat message', msg);
-    console.log(`Message: ${msg} sent to room: ${room}`);
+  socket.on('join room', async (room) => {
+    if (room.farmerId && room.expertId) {
+      socket.join(room.roomId);
+      console.log(`User joined room: ${room.roomId}`);
+      const checkRoom = await prisma.room.findMany({
+        where: {
+          roomid: room.roomId,
+        },
+      });
+      if (checkRoom.length) return;
+      await prisma.room.create({
+        data: {
+          farmerId: room.farmerId,
+          expertId: room.expertId,
+          roomid: room.roomId,
+        },
+      });
+    }
   });
+  socket.on(
+    'chat message',
+    async ({ message, roomId, senderName, senderId, createdAt }) => {
+      await prisma.message.create({
+        data: {
+          roomId: roomId,
+          senderId: senderId,
+          senderName: senderName,
+          message,
+        },
+      });
+      io.to(roomId).emit('chat message', { message, roomId, senderName, createdAt });
+      console.log(`Message: ${message} sent to room: ${roomId} from ${senderName}`);
+    }
+  );
 });
 
 const { pricesData } = require('./helpers/pricesData');
-const prisma = require('./database/prisma');
 const routersAuthfarmer = require('./routes/Authfarmer.js');
+const routersAuthexpert = require('./routes/Authexpert.js');
 const routerFarmtools = require('./routes/FarmerTools.js');
 const routerFarmer = require('./routes/Farmer.js');
+const routerEnrollement = require('./routes/Enrollement.js');
 const { getWeather } = require('./WeatherAPI/Weather.js');
 const routercommunity = require('./routes/community.js');
 const newsRouter = require('./routes/News.js');
-// const excutiveRoute = require('./routes/excutive.js');
 const routercomment = require('./routes/comment.js');
+const routerMessage = require('./routes/messageRoute.js');
+
 //Declare the express app
 
 app.use(express.json());
@@ -49,12 +81,14 @@ dotenv.config();
 
 app.get('/prices', pricesData);
 app.use('/api/farmer', routersAuthfarmer);
+app.use('/api/expert', routersAuthexpert);
 app.use('/api/tools', routerFarmtools);
 app.use('/api/post', routercommunity);
 app.use('/api/comment', routercomment);
 // app.get('/weather',getWeather)
 app.use('/news', newsRouter);
-// app.use('/expert', excutiveRoute);
+app.use('/enrollement', routerEnrollement);
+app.use('/api/message', routerMessage);
 
 //Listen for requests  :
 server.listen(port, () => console.log(`App listening on port ${port}!`));
