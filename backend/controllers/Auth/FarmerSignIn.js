@@ -36,7 +36,7 @@ const signInFarmer = async (req, res) => {
 
     const token = jwt.sign(
       {
-        userId: farmer.id,
+        id: farmer.id,
         firstName: farmer.firstName,
         lastName: farmer.lastName,
         email: farmer.email,

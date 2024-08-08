@@ -12,7 +12,7 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000', // Update this to match your frontend URL
+    origin: '*', // accept all request urls
     methods: ['GET', 'POST'],
   },
 });
@@ -52,7 +52,13 @@ io.on('connection', (socket) => {
           message,
         },
       });
-      io.to(roomId).emit('chat message', { message, roomId, senderName, createdAt });
+      io.to(roomId).emit('chat message', {
+        message,
+        roomId,
+        senderId,
+        senderName,
+        createdAt,
+      });
       console.log(`Message: ${message} sent to room: ${roomId} from ${senderName}`);
     }
   );
