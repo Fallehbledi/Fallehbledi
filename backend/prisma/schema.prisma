@@ -89,8 +89,10 @@ model WeatherForecast {
 
 model prices {
   id    Int @id @default(autoincrement())
-  title String
+  name String
   price Int
+  image String
+  updatedAt  DateTime @updatedAt
 }
 model post{
   id              Int @id @default(autoincrement())
@@ -151,3 +153,4 @@ enum enrollmentStatus {
   VALID
   INVALID
 }
+
