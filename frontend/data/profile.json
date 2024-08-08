@@ -1,0 +1,17 @@
+
+    
+       [
+         {
+            "id": 1,
+            "firstName": "fathi",
+            "lastName": "barhoumi",
+            "email": "barh@gmail.com",
+            "password": "$2b$10$ok0v8Un.IGgZXjdOrSZ9we8kHh65PK0CWQIipgLG79nEU.CZOcvU2",
+            "phone": "54555454",
+            "adress": "sousse",
+            "location": "tunis",
+            "profileImage":"https://media.istockphoto.com/id/1498903496/photo/farmer-standing-at-field.jpg?s=612x612&w=0&k=20&c=6ZNt08eOGUyurfh_YGFuqXk6RzRR4aI3VqGSNVPxZF4=",
+            "status": "pending"
+          }
+        ]
+    

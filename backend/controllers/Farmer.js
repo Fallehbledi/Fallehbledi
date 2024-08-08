@@ -1,29 +1,74 @@
-
-const prisma = require("@prisma/client")
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 module.exports = {
-    // query of update profile of farmer 
-    updateProfile : async (req,res)=>{
-        try {
-         const profile = await prisma.farmer.update({
-            where: {
-              id: req.params.id,
-            },
-            data : {
-            firstName : req.body,     
-            lastName  :req.body,
-            adress : req.body,
-            location : res.body
-            }
+  // query of update profile of farmer
 
-          }) 
-        } catch (error) {
-           
-        console.error("Failed to update profile:", error);
-        res.status(500).send("Failed to update profile"); 
-        }
+  GetOneFarmer: async (req, res) => {
+    try {
+      const { id } = req.params; // Assuming the farmer's ID is passed as a URL parameter
+      const farmer = await prisma.farmer.findUnique({
+        where: { id: Number(id) },
+      });
 
-}
-}
+      if (!farmer) {
+        return res.status(404).send('Farmer not found');
+      }
 
+      res.status(200).json(farmer);
+    } catch (error) {
+      console.error('Failed to fetch farmer:', error);
+      res.status(500).send('Failed to fetch farmer');
+    }
+  },
+  updateProfile: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { firstName, lastName, phone, address, location, profileImage } = req.body;
+
+      const profile = await prisma.farmer.update({
+        where: { id: Number(id) },
+        data: {
+          firstName,
+          lastName,
+          phone,
+          address,
+          location,
+          profileImage,
+        },
+      });
+
+      res.status(200).json(profile);
+    } catch (error) {
+      if (error.code === 'P2025') {
+        // P2025 is the Prisma error code for "Record to update not found."
+        res.status(404).send('Farmer not found');
+      } else {
+        console.error('Failed to update profile:', error);
+        res.status(500).send('Failed to update profile');
+      }
+    }
+  },
+  GetFarmers: async (req, res) => {
+    try {
+      const farmers = await prisma.farmer.findMany({
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+          phone: true,
+          status: true,
+          profileImage: true,
+        },
+      });
+      if (!farmers) {
+        return res.status(404).send('Farmer not found');
+      }
+      res.status(200).json(farmers);
+    } catch (error) {
+      console.error('Failed to fetch farmer:', error);
+      res.status(500).send('Failed to fetch farmer');
+    }
+  },
+};
