@@ -69,7 +69,7 @@ const routercommunity = require('./routes/community.js');
 const newsRouter = require('./routes/News.js');
 const routercomment = require('./routes/comment.js');
 const routerMessage = require('./routes/messageRoute.js');
-
+const routerprice=require('./routes/prices.js')
 //Declare the express app
 
 app.use(express.json());
@@ -89,6 +89,7 @@ app.use('/api/comment', routercomment);
 app.use('/news', newsRouter);
 app.use('/enrollement', routerEnrollement);
 app.use('/api/message', routerMessage);
+app.use('/api/price',routerprice)
 
 //Listen for requests  :
 server.listen(port, () => console.log(`App listening on port ${port}!`));
