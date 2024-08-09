@@ -101,4 +101,30 @@ module.exports = {
       res.status(500).send('Failed to fetch farmtool');
     }
   },
+  // Update farmtool by ID
+  UpdateFarmtool: async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, description, price, image, category, quantity } = req.body;
+
+        const farmtool = await prisma.farmtools.update({
+            where: {
+                id: Number(id)
+            },
+            data: {
+                name,
+                description,
+                price: Number(price),
+                image,
+                category,
+                quantity: Number(quantity)
+            }   
+        });
+
+        res.status(200).json({ message: "Farmtool update successfully", farmtool });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error);
+    }
+}
 };

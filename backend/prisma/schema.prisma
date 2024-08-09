@@ -53,7 +53,7 @@ model experts {
   enrollments   enrollement[]
   room          room[]
 }
-enum expertRole {
+enum expertRole {  
   expert
   admin
 }
