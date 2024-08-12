@@ -47,7 +47,7 @@ exports.Register = [
           password: hashedPassword,
           adress,
           location,
-          // profileImage,
+          profileImage,
           phone,
           status: farmerStatus 
         }

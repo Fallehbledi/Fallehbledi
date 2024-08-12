@@ -1,5 +1,6 @@
 'use server'
 import { redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
 const createcomment = async (PostId: any , UserId: any,formData: FormData) => {
     'use server'
@@ -17,7 +18,7 @@ const createcomment = async (PostId: any , UserId: any,formData: FormData) => {
         body:JSON.stringify(comments)
     });
     if(response.ok){
-      redirect('/community')
+      revalidatePath('/community')
   }
  
     

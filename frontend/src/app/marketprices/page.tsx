@@ -13,20 +13,17 @@ const page = () => {
                     Product
                 </th>
                 <th scope="col" className="px-6 py-3">
-                    MinPrice
+                    Last Day Price
                 </th>
                 <th scope="col" className="px-6 py-3">
                     Price
                 </th>
+                
                 <th scope="col" className="px-6 py-3">
-                    MaxPrice
+                Add to favorites
+
                 </th>
-                <th scope="col" className="px-6 py-3">
-                    Status
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Add to favorites
-                </th>
+                
             </tr>
         </thead>
         {prices.map((elem)=>{
@@ -45,14 +42,8 @@ const page = () => {
                 <td className="px-6 py-4">
                     {elem.price}
                 </td>
-                <td className="px-6 py-4">
-                    {elem.maxPrice}
-                </td>
-                <td className="px-6 py-4">
-                    <div className="flex items-center">
-                        <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> {elem.status}
-                    </div>
-                </td>
+                
+                
                 <td className="px-6 py-4">
                     {/* Modal toggle */}
                     <a href="#" type="button" data-modal-target="editUserModal" data-modal-show="editUserModal" className="font-medium text-[#058f1a] hover:underline">Add</a>

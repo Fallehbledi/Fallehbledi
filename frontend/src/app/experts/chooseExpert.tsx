@@ -1,5 +1,6 @@
 'use client'
 import { useState } from "react"
+import EnrollAction from "./EnrollAction"
 
 const chooseExpert = () => {
     const [active,setActive] = useState(false)
@@ -30,11 +31,13 @@ Choose Expert
       </li>
     </ul>
 </div>
-
+<form action={EnrollAction}>
 <div className="sm:col-span-2 py-10">
               <label htmlFor="message" className="block mb-2 text-base font-medium text-gray-900 ">Your message</label>
-              <textarea id="message" rows="6" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300  " placeholder="Leave a comment..."></textarea>
+              <textarea id="message" name="message" rows="6" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300  " placeholder="Leave a comment..."></textarea>
           </div>
+          <button type="submit" className="bg-[#000] text-white">Enrolle</button>
+          </form>
 </div>
   )
 }

@@ -20,15 +20,16 @@ model farmer {
   email    String  @unique
   password String
   phone    String
-  adress   String
-  location  String
-  profileImage String?
+  adress   String?
+  location  String?
+  profileImage String
   status    status @default(pending)
   createdAt  DateTime   @default(now())
-   posts post[]
-   comments comment[]
-
-  
+  posts post[]
+  comments comment[]
+  enrollments   enrollement[]
+  room          room[]
+  cardProd      addedToCard[] 
   // isVerified Boolean  @default(false)
 }
 
@@ -41,12 +42,21 @@ enum status {
 
 
 model experts {
-  id       Int @id @default(autoincrement())
+  id            Int @id @default(autoincrement())
   firstName     String
-  lastName     String
-  background    String
-  phone        Int
-  certificate  String
+  lastName      String
+  email         String
+  phone         String
+  bio           String?
+  profileImage  String?
+  password      String
+  role          expertRole    @default(expert)
+  enrollments   enrollement[]
+  room          room[]
+}
+enum expertRole {
+  expert
+  admin
 }
 
 model farmtools {
@@ -80,8 +90,10 @@ model WeatherForecast {
 
 model prices {
   id    Int @id @default(autoincrement())
-  title String
+  name String
   price Int
+  image String
+  updatedAt  DateTime @updatedAt
 }
 model post{
   id              Int @id @default(autoincrement())
@@ -109,4 +121,48 @@ model news {
   title           String 
   content         String
   image           String
+}
+model message {
+  id        Int      @id @default(autoincrement())
+  message   String
+  createdAt DateTime @default(now())
+  senderId  Int
+  senderName String
+  roomId    String
+  room      room     @relation(fields: [roomId], references: [roomid])
+}
+model room {
+  id        Int       @id @default(autoincrement())
+  farmerId  Int
+  farmer    farmer    @relation(fields: [farmerId], references: [id])
+  expertId  Int
+  roomid    String    @unique
+  expert    experts    @relation(fields: [expertId], references: [id])
+  messages  message[]
+}
+model enrollement {
+  id        Int    @id @default(autoincrement())
+  farmerId  Int
+  expertId  Int
+  farmer    farmer @relation(fields: [farmerId], references: [id])
+  expert    experts @relation(fields: [expertId], references: [id])
+  status    enrollmentStatus  @default(INVALID)
+  message   String
+  createdAt DateTime          @default(now()) 
+}
+enum enrollmentStatus {
+  VALID
+  INVALID
+}
+
+model addedToCard {
+    id          Int @id @default(autoincrement())
+  name        String
+  description String
+  price       Int
+  image       String
+  category    String
+  quantity    Int
+  farmerId  Int    
+  farmer        farmer @relation(fields: [farmerId], references: [id])
 }

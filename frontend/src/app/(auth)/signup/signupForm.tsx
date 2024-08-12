@@ -4,26 +4,9 @@ import {toast} from 'react-hot-toast'
 import {redirect} from 'next/navigation'
 import { useState } from 'react'
 const signupForm = () => {
-  const [errors, setErrors] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    adress: '',
-    location: '',
-  })
+ const [errorMessage,setErrorsMessage]=useState([])
  const HandleSignUp = async(formData:FormData)=>{
-  const user = {
-    firstName: formData.get("firstName"),
-    lastName: formData.get("lastName"),
-    email: formData.get("email"),
-    password: formData.get("password"),
-    adress: formData.get("adress"),
-    phone: '54555454',
-    location: "tunis",
-};
      const result = await CreateUser(formData)
-     console.log(result);
      
      if (result === 'User registered successfully') {
      toast.success(result,{
@@ -32,14 +15,7 @@ const signupForm = () => {
       redirect('/login')
      }
      else {
-      result.map((elem:any)=>{
-        if(elem.value === ''){
-         toast.error(elem.msg,{
-            duration: 5000,
-          })
-        }
-      })
-     
+      setErrorsMessage(result)
      }
         
     }
@@ -57,7 +33,17 @@ const signupForm = () => {
             className="bg-gray-50 border outline-[#058f1a] border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5  "
             placeholder="First Name"
           />
+          {errorMessage.map((error)=>{
+            if(error.path==='firstName'){
+              return (
+                <div className="text-red-500 text-sm" key={error.message}>
+                  {error.msg}
+                </div>
+              )
+            }
+          })}
         </div>
+
         <div className="mb-5">
           <label className="block mb-2  text-sm font-medium text-gray-900 ">
           Last Name
@@ -69,6 +55,15 @@ const signupForm = () => {
             className="bg-gray-50 border outline-[#058f1a] border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5  "
             placeholder="Last Name"
           />
+          {errorMessage.map((error)=>{
+            if(error.path==='lastName'){
+              return (
+                <div className="text-red-500 text-sm" key={error.message}>
+                  {error.msg}
+                </div>
+              )
+            }
+          })}
         </div>
         </div>
         <div className="mb-5">
@@ -82,6 +77,15 @@ const signupForm = () => {
             className="bg-gray-50 border outline-[#058f1a] border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5  "
             placeholder="name@exemple.com"
           />
+          {errorMessage.map((error)=>{
+            if(error.path==='email'){
+              return (
+                <div className="text-red-500 text-sm" key={error.message}>
+                  {error.msg}
+                </div>
+              )
+            }
+          })}
         </div>
         <div className="grid md:grid-cols-2 md:gap-6">
         <div className="mb-5">
@@ -95,6 +99,15 @@ const signupForm = () => {
             name="password"
             className="bg-gray-50 border outline-[#058f1a] border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
           />
+          {errorMessage.map((error)=>{
+            if(error.path==='password'){
+              return (
+                <div className="text-red-500 text-sm" key={error.message}>
+                  {error.msg}
+                </div>
+              )
+            }
+          })}
         </div>
         <div className="mb-5">
           <label className="block mb-2 text-sm font-medium text-gray-900 ">
@@ -106,6 +119,15 @@ const signupForm = () => {
             placeholder="Confirm Password"
             className="bg-gray-50 border outline-[#058f1a] border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
           />
+          {errorMessage.map((error)=>{
+            if(error.path==='password'){
+              return (
+                <div className="text-red-500 text-sm" key={error.message}>
+                  {error.msg}
+                </div>
+              )
+            }
+          })}
         </div>
         </div>
         <div className="grid md:grid-cols-2 md:gap-6">

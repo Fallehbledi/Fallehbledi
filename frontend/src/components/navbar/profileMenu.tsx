@@ -7,12 +7,12 @@ import { useActive } from '../context/activeContext'
 import { useRef } from 'react'
 import { FaAngleDown } from "react-icons/fa6";
 import { FaAngleUp  } from "react-icons/fa6";
-import { TiWeatherCloudy } from "react-icons/ti";
 
 const profileMenu =  (props) => {
   const { active, setActive } = useActive();
   const { user } = props;
-
+   
+   
   
 
 const menuRef = useRef<HTMLDivElement>();
@@ -26,7 +26,7 @@ window.addEventListener('click',(e)=>{
     <>
     <div onClick={()=>setActive(!active)} className= " flex items-center cursor-pointer  transition mr-[6rem]">
        
-           <Image ref={imgRef} src={user.profileImage} width={40} height={40}  className="w-10 h-10 rounded-full mr-2 cursor-pointer"  alt="User dropdown"/>
+           <img ref={imgRef} src={user.profileImage} width={40} height={40}  className=" rounded-full mr-2 cursor-pointer"  alt="User dropdown"/>
   
        {active && <FaAngleUp />}
        {!active && <FaAngleDown/>}
@@ -39,7 +39,7 @@ window.addEventListener('click',(e)=>{
     </div>
     <ul className="py-2 text-sm text-gray-900 " aria-labelledby="user-menu-button">
       <li>
-        <Link href="/wishlist" className="block px-4 py-2 text-gray-900 hover:bg-[#058f1a] hover:text-[#fff]">Wishlist</Link>
+        <Link href={`/card?id=${user.userId}`} className="block px-4 py-2 text-gray-900 hover:bg-[#058f1a] hover:text-[#fff]">Card</Link>
       </li>
       <li>
         <Link href={`/settings?id=${user.userId}`} className="block px-4 py-2 text-gray-900 hover:bg-[#058f1a] hover:text-[#fff]">Settings</Link>

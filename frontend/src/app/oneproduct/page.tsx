@@ -1,7 +1,9 @@
 'use client';
 import React from 'react'
 import { useSearchParams } from 'next/navigation'
-import { LiaShippingFastSolid } from "react-icons/lia";
+import axios from 'axios'
+import {toast} from 'react-hot-toast'
+
 const OneProduct = () => {
 
     const searchParams = useSearchParams();
@@ -13,6 +15,23 @@ const OneProduct = () => {
     const price = searchParams.get('price');
     const category = searchParams.get('category');
     const quantity = searchParams.get('quantity');
+    const productAdded={
+        name:name,
+        description:description,
+        image:image,
+        price:Number(price),
+        category:category,
+        quantity:Number(quantity),
+        farmerId:1
+    }
+const handleAddProd=()=>{
+axios.post('http://127.0.0.1:5000/api/card/addedProd',productAdded)
+.then((response)=>toast.success('Product Added Succefully',{
+    duration: 5000,
+  }))
+.catch((err)=>console.log(err))
+
+}
 
     return (
 
@@ -174,26 +193,10 @@ const OneProduct = () => {
                                 </button>
                             </div>
                             <button
+                             onClick={handleAddProd}
                                 className="group py-4 px-5 rounded-full bg-[#058f1a] text-white font-semibold text-lg w-full flex items-center justify-center gap-2 transition-all duration-500 hover:bg-green-700">
-                                
-                              Add to cart</button>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <button
-                                className="group transition-all duration-500 p-4 rounded-full bg-indigo-50 hover:bg-indigo-100 hover:shadow-sm hover:shadow-indigo-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"
-                                    fill="none">
-                                    <path
-                                        d="M4.47084 14.3196L13.0281 22.7501L21.9599 13.9506M13.0034 5.07888C15.4786 2.64037 19.5008 2.64037 21.976 5.07888C24.4511 7.5254 24.4511 11.4799 21.9841 13.9265M12.9956 5.07888C10.5204 2.64037 6.49824 2.64037 4.02307 5.07888C1.54789 7.51738 1.54789 11.4799 4.02307 13.9184M4.02307 13.9184L4.04407 13.939M4.02307 13.9184L4.46274 14.3115"
-                                        stroke="#4F46E5" stroke-width="1.6" stroke-miterlimit="10"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-
-                            </button>
-                            <button
-                                className="text-center w-full px-5 py-4 rounded-[100px] bg-[#058f1a] flex items-center justify-center font-semibold text-lg text-white shadow-sm transition-all duration-500 hover:bg-green-700 hover:shadow-green-400">
-                                Buy Now
-                            </button>
+                              Add to cart
+                              </button>
                         </div>
                     </div>
                 </div>
