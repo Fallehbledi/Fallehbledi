@@ -8,7 +8,7 @@ module.exports = {
             const addprice = await prisma.prices.create({
                 data: {
                     name,
-                    price,
+                    price:parseInt(price),
                     image,
                 }
             });
@@ -19,16 +19,37 @@ module.exports = {
             res.status(500).send("Failed to create your price");
         }
     },
+    GetAllpricebydate:async(req,res)=>{
+        const now = new Date();
+        const week = new Date(now);
+        week.setDate(now.getDate() - 7);
 
-   
+  const allprices = await prisma.prices.findMany({
+    where: {
+      updatedAt: {
+        gte: week,
+      },
+    },
+    orderBy: {
+      updatedAt: 'desc',
+    },
+  });
+
+  res.status(200).json(allprices);
+
+    },
     GetAllprices: async (req, res) => {
         try {
-            const allprice = await prisma.prices.findMany();
+            const allprice = await prisma.prices.findMany({
+                orderBy: {
+                    id: "desc",
+                }
+            });
 
             res.status(200).json(allprice);
         } catch (error) {
-            console.error("Failed to fetch farmtools:", error);
-            res.status(500).send("Failed to fetch farmtools");
+            console.error("Failed to fetch product price:", error);
+            res.status(500).send("Failed to fetch product price ");
         }
     },
 
@@ -51,7 +72,7 @@ module.exports = {
             const updatedPrice = await prisma.prices.update({
                 where: { id: +id },
                 data: {
-                    
+        
                     price,
                     
                 }

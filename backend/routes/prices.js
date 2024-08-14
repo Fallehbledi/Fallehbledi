@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router();
-const {Createprice,Deleteprice,GetAllprices,Updateprice}=require('../controllers/price.js')
+const {GetAllpricebydate,Createprice,Deleteprice,GetAllprices,Updateprice}=require('../controllers/price.js')
 router.get("/all",GetAllprices)
+router.get("/allday",GetAllpricebydate)
 router.delete("/del/:id",Deleteprice)
 router.post("/add",Createprice)
 router.put("/update/:id",Updateprice)
