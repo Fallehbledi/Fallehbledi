@@ -4,12 +4,14 @@ module.exports = {
     // add farmtool 
     Createprice: async (req, res) => {
         try {
-            const { name,  price, image} = req.body;
+            const { name,  price, image,createdAt,updatedAt} = req.body;
             const addprice = await prisma.prices.create({
                 data: {
                     name,
                     price:parseInt(price),
                     image,
+                    createdAt: createdAt ? new Date(createdAt) : undefined,
+                    updatedAt:updatedAt ? new Date(updatedAt) : undefined,
                 }
             });
 
@@ -19,25 +21,32 @@ module.exports = {
             res.status(500).send("Failed to create your price");
         }
     },
-    GetAllpricebydate:async(req,res)=>{
-        const now = new Date();
-        const week = new Date(now);
-        week.setDate(now.getDate() - 7);
-
-  const allprices = await prisma.prices.findMany({
-    where: {
-      updatedAt: {
-        gte: week,
+    GetAllpricebydate: async (req, res) => {
+        try {
+         
+          const now = new Date();
+          const startOfDay = new Date(now.setHours(0, 0, 0, 0));
+          const endOfDay = new Date(startOfDay);
+          endOfDay.setHours(23, 59, 59, 999);
+          const allprices = await prisma.prices.findMany({
+            where: {
+              updatedAt: {
+                gte: startOfDay,
+                lte: endOfDay,
+              },
+            },
+            orderBy: {
+              updatedAt: 'desc',
+            },
+          });
+      
+          res.status(200).json(allprices);
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ error: 'An error occurred while fetching prices.' });
+        }
       },
-    },
-    orderBy: {
-      updatedAt: 'desc',
-    },
-  });
-
-  res.status(200).json(allprices);
-
-    },
+      
     GetAllprices: async (req, res) => {
         try {
             const allprice = await prisma.prices.findMany({

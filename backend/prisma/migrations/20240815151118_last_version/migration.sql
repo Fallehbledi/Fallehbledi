@@ -80,8 +80,11 @@ CREATE TABLE "WeatherForecast" (
 -- CreateTable
 CREATE TABLE "prices" (
     "id" SERIAL NOT NULL,
-    "title" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
+    "image" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "prices_pkey" PRIMARY KEY ("id")
 );

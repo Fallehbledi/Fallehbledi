@@ -134,13 +134,13 @@ const ChatPage = () => {
                 .filter((msg: any) => msg.roomId === `${receiver.email}-${user.email}`)
                 .map((msg: any, index) => (
                   <li
-                    key={index}
-                    className={`mb-2 w-4/12 rounded-lg p-2 ${
+                  key={index}
+                  className={`mb-2 w-4/12 rounded-lg p-2 ${
                       msg.senderId === user.id && msg.senderName === user.firstName
                         ? 'bg-blue-100 text-right self-end'
                         : 'bg-green-100 text-left self-start'
                     }`}
-                  >
+                    >
                     <span className='text-black'>{msg.message}</span> <br />
                     <small>
                       by {msg.senderName} at{' '}
@@ -162,7 +162,7 @@ const ChatPage = () => {
             />
             <button
               type='submit'
-              className='rounded-r-md bg-green-500 px-4 py-2 text-white hover:bg-green-600 focus:bg-green-600 focus:outline-none'
+              className='rounded-r-md bg-green-900 px-4 py-2 text-white hover:bg-green-800 focus:bg-green-600 focus:outline-none'
               disabled={!receiver.id}
             >
               Send
