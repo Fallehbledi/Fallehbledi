@@ -15,7 +15,7 @@ const priceCard = () => {
         -0.050 -2.60%
     </div>
     <div className="text-gray-500 text-sm mt-4">
-        Last Updated: Aug 5, 2024 4:57 p.m. EDT
+        Last Updated: Aug 16, 2024 
     </div>
 </div>
   

@@ -35,6 +35,8 @@ const signInFarmer = async (req, res) => {
       if (!passwordMatch) {
         return res.status(401).json({ error: "Password is incorrect." });
       }
+     
+      
 
       // Generate a JSON Web Token (JWT) for authentication
 
@@ -46,7 +48,9 @@ const signInFarmer = async (req, res) => {
           email:farmer.email,
           phoneNumber:farmer.phone,
           address:farmer.adress,
-          profileImage:farmer.profileImage
+          profileImage:farmer.profileImage,
+          activationCode:farmer.activationCode,
+          isVerified:farmer.isVerified,
         },
         process.env.JWT_SECRET,
         {
@@ -61,6 +65,9 @@ const signInFarmer = async (req, res) => {
         email:farmer.email,
         phoneNumber:farmer.phone,
         address:farmer.adress,
+        isVerified:farmer.isVerified,
+        activationCode:farmer.activationCode
+
       
       };
 

@@ -1,19 +1,22 @@
 const bcrypt = require('bcrypt');
 const { body, validationResult } = require('express-validator');
 const { PrismaClient } = require('@prisma/client');
+const nodemailer=require('../../nodemailer/nodemailer.config')
 const prisma = new PrismaClient();
 
 exports.Register = [
   body('firstName')
-    .isLength({ min: 4 }).withMessage('First name must be longer than 4 characters'),
+    .isLength({ min: 2 }).withMessage('First name must be longer than 2 characters'),
   body('lastName')
-    .isLength({ min: 4 }).withMessage('Last name must be longer than 4 characters'),
+    .isLength({ min: 2 }).withMessage('Last name must be longer than 2 characters'),
+    body('email')
+    .isLength({ min: 2 }).withMessage('Please enter your email address'),
   body('email')
-    .isEmail().withMessage('Email must be valid')
     .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).withMessage('Email must be a valid email address format'),
   body('password')
-    .isLength({ min: 6 }).withMessage('Password must be longer than 6 characters')
     .matches(/[0-9]/).withMessage('Password must contain at least one digit'),
+  body('location')
+    .isLength({ min: 2 }).withMessage('Please enter a valid location'),
   body('email').custom(async (value) => {
     const user = await prisma.farmer.findFirst({ where: { email: value } });
     if (user) {
@@ -32,6 +35,12 @@ exports.Register = [
 
     const { firstName, lastName, email, password, adress, profileImage, location, status ,phone} = req.body;
 
+    const characters =
+      "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let actCode = "";
+    for (let i = 0; i < 6; i++) {
+      actCode += characters[Math.floor(Math.random() * characters.length)];
+    }
     try {
 
       const salt = await bcrypt.genSalt(10);
@@ -49,11 +58,16 @@ exports.Register = [
           location,
           profileImage,
           phone,
-          status: farmerStatus 
+          status: farmerStatus,
+          activationCode: actCode
+        
         }
       });
-
-      console.log('User registered successfully:', newUser);
+      nodemailer.sendConfirmationEmail(
+        newUser.firstName,
+        newUser.email,
+        newUser.activationCode,
+      );
       res.status(201).json({ message: "User registered successfully", user: newUser });
     } catch (error) {
       console.error('Server error:', error); 
@@ -61,34 +75,3 @@ exports.Register = [
     }
   }
 ];
-// const getAllfarmer = async (req, res) => {
-//   try {
-//     let result = await prisma.farmer.findMany()
-//     console.log(result);
-//     res.status(200).json(result)
-//   } catch (err) {
-//     console.log(err);
-//     res.status(404).json({ error: " not found." })
-//   }
-// }
-// const getOnefarmer = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-    
-//     const farme = await prisma.farmer.findUnique({
-//       where: { id: parseInt(id) },
-
-//     });
-
-//     if (farme) {
-//       console.log(patient);
-//       res.status(200).json(patient);
-//     } else {
-//       res.status(404).json({ error: "Patient not found." });
-//     }
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({ error: "An error occurred while retrieving the patient." });
-//   }
-// };
-// module.exports={getAllfarmer,getOnefarmer}

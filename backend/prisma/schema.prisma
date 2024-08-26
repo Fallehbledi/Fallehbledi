@@ -30,7 +30,8 @@ model farmer {
   enrollments   enrollement[]
   room          room[]
   cardProd      addedToCard[] 
-  // isVerified Boolean  @default(false)
+  isVerified  Boolean  @default(false)
+  activationCode String @unique
 }
 
 enum status {
@@ -93,7 +94,8 @@ model prices {
   name String
   price Int
   image String
-  updatedAt  DateTime @updatedAt
+  createdAt  DateTime
+  updatedAt  DateTime 
 }
 model post{
   id              Int @id @default(autoincrement())

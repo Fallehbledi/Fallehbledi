@@ -10,7 +10,7 @@ const user = await GetUser()
     
   return (
     <>
-    {!user &&
+    {!user && 
      <div className=" flex flex-col items-center justify-center">
       <HeroSection/>
       <FeaturesCard/>

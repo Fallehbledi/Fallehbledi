@@ -10,7 +10,7 @@ async function getData() {
   }
 const LastestNews = async () => {
 const products =await getData()
-const ProductsSection= products.splice(0,4)
+const ProductsSection= products
     return (
       
   

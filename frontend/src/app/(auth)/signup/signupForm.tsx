@@ -36,7 +36,7 @@ const signupForm = () => {
           {errorMessage.map((error)=>{
             if(error.path==='firstName'){
               return (
-                <div className="text-red-500 text-sm" key={error.message}>
+                <div className="text-red-500 text-[13px] mt-1" key={error.message}>
                   {error.msg}
                 </div>
               )
@@ -58,7 +58,7 @@ const signupForm = () => {
           {errorMessage.map((error)=>{
             if(error.path==='lastName'){
               return (
-                <div className="text-red-500 text-sm" key={error.message}>
+                <div className="text-red-500 text-[13px] mt-1" key={error.message}>
                   {error.msg}
                 </div>
               )
@@ -80,7 +80,7 @@ const signupForm = () => {
           {errorMessage.map((error)=>{
             if(error.path==='email'){
               return (
-                <div className="text-red-500 text-sm" key={error.message}>
+                <div className="text-red-500 text-[13px] mt-1" key={error.message}>
                   {error.msg}
                 </div>
               )
@@ -102,7 +102,7 @@ const signupForm = () => {
           {errorMessage.map((error)=>{
             if(error.path==='password'){
               return (
-                <div className="text-red-500 text-sm" key={error.message}>
+                <div className="text-red-500 text-[13px] mt-1" key={error.message}>
                   {error.msg}
                 </div>
               )
@@ -119,15 +119,6 @@ const signupForm = () => {
             placeholder="Confirm Password"
             className="bg-gray-50 border outline-[#058f1a] border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
           />
-          {errorMessage.map((error)=>{
-            if(error.path==='password'){
-              return (
-                <div className="text-red-500 text-sm" key={error.message}>
-                  {error.msg}
-                </div>
-              )
-            }
-          })}
         </div>
         </div>
         <div className="grid md:grid-cols-2 md:gap-6">
@@ -142,6 +133,15 @@ const signupForm = () => {
             className="bg-gray-50 border outline-[#058f1a] border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5  "
             placeholder="location"
           />
+           {errorMessage.map((error)=>{
+            if(error.path==='location'){
+              return (
+                <div className="text-red-500 text-[13px] mt-1" key={error.message}>
+                  {error.msg}
+                </div>
+              )
+            }
+          })}
         </div>
         <div className="mb-5">
           <label className="block mb-2 text-sm font-medium text-gray-900 ">

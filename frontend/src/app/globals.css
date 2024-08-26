@@ -125,6 +125,7 @@
   left: 50rem;
   background-color: #fff;
   width: 30rem;
+  
 }
 
 .prices-container .title {
@@ -133,6 +134,7 @@
   height: 100%;
   display: flex;
   align-items: center;
+  
   padding: 0 24px;
   color: white;
   font-weight: bold;

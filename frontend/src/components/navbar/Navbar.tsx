@@ -1,13 +1,30 @@
-'use server'
+'use client'
 import Image from 'next/image'
 import Logo from '../../../public/image/falleh.png'
 import Link from 'next/link'
 import ProfileMenu from './profileMenu'
-import PricesBar from '../dash/PricesBar'
-
 import getUser from '@/helpers/getUser'
-const Navbar = async () => {
-const user = await getUser()
+import { useEffect, useState } from 'react'
+
+const Navbar =  () => {
+const [user,setUser]=useState({})
+const [isActivated,setIsActivated]=useState(false)
+console.log({user});
+
+    useEffect(() => {
+        const fetchUser = async()=>{
+            const GetUser:any = await getUser()
+            setUser(GetUser)
+           if(GetUser && GetUser.isVerified === true){
+            setIsActivated(true)
+           }
+           else{
+            setIsActivated(false)
+ 
+           }
+        }
+    fetchUser()
+    },[]);
 
   return (
     <header className="fixed w-full">
@@ -18,13 +35,14 @@ const user = await getUser()
                 </Link>
                 <div className="flex items-center lg:order-2">
                 
-                 {!user && 
+                 {!isActivated &&
                  <>
                  <Link href="/login" className="text-[#000]  font-medium rounded-lg text-sm mr-2 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 hover:text-[#058f1a] ">Login</Link>
                 <Link href="/signup" className="text-white bg-[#058f1a] focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm  lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0">Signup</Link>
                 </>
                 }
-            {user &&<div className="">
+            {user && isActivated &&
+            <div className="">
             <ProfileMenu user={user} />
             </div>}
                 
@@ -47,19 +65,19 @@ const user = await getUser()
                         <li>
                             <Link href="/community" className="block py-2 pl-3 pr-4 text-[16px] text-white bg-[#058f1a] rounded lg:bg-transparent lg:text-[#000] lg:p-0 hover:text-[#058f1a]">Community</Link>
                         </li>
-                        {user&&
+                        {isActivated === true &&
                         <li>
                         <Link href="/marketprices" className="block py-2 pl-3 pr-4 text-[16px] text-white bg-[#058f1a] rounded lg:bg-transparent lg:text-[#000] lg:p-0 hover:text-[#058f1a]">Market Prices</Link>
                     </li>}
-                    {user&&
+                    {isActivated === true &&
                         <li>
                         <Link href="/weather" className="block py-2 pl-3 pr-4 text-[16px] text-white bg-[#058f1a] rounded lg:bg-transparent lg:text-[#000] lg:p-0 hover:text-[#058f1a]">Weather</Link>
                     </li>}
-                        {!user && 
+                        {isActivated === false &&
                         <li>
                             <Link href="about" className="block py-2 pl-3 pr-4 text-[16px] text-white bg-[#058f1a] rounded lg:bg-transparent lg:text-[#000] lg:p-0 hover:text-[#058f1a]">About</Link>
                         </li>}
-                        {!user &&
+                        {isActivated === false &&
                         <li>
                             <Link href="/contact" className="block py-2 pl-3 pr-4 text-[16px]  text-white bg-[#058f1a] rounded lg:bg-transparent lg:text-[#000] lg:p-0 hover:text-[#058f1a]">Contact</Link>
                         </li>}

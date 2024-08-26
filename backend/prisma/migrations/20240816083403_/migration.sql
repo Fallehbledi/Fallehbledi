@@ -20,6 +20,8 @@ CREATE TABLE "farmer" (
     "profileImage" TEXT NOT NULL,
     "status" "status" NOT NULL DEFAULT 'pending',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "isVerified" BOOLEAN NOT NULL DEFAULT false,
+    "activationCode" TEXT NOT NULL,
 
     CONSTRAINT "farmer_pkey" PRIMARY KEY ("id")
 );
@@ -83,6 +85,7 @@ CREATE TABLE "prices" (
     "name" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
     "image" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "prices_pkey" PRIMARY KEY ("id")
@@ -171,6 +174,9 @@ CREATE TABLE "addedToCard" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "farmer_email_key" ON "farmer"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "farmer_activationCode_key" ON "farmer"("activationCode");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "room_roomid_key" ON "room"("roomid");

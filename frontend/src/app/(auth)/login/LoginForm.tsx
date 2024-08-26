@@ -1,13 +1,29 @@
 'use client'
 import GetUser from './LoginAction'
 import { useState } from 'react';
-
+import {toast} from 'react-hot-toast'
+import User from '../../../helpers/getUser'
+import { redirect } from 'next/navigation';
+import verifyUser from '../../../helpers/verifyUser'
 const LoginForm =  () => {
 const [errors, setErrors] = useState('');
 const handleLogin =async (formData:FormData)=>{
     const getUser = await GetUser(formData)
- setErrors(getUser.error)
-
+    if(getUser === 'Login succeeded'){
+      toast.success('Welcome to Falleh Bledy',{
+        duration: 5000,
+      })
+    }
+    else{
+      setErrors(getUser);
+    }
+const user:any = await User()    
+if(user && user.isVerified === false){
+  redirect('/confirm')
+}
+else if(user && user.isVerified === true){
+  redirect('/')
+}
     
 }
 
@@ -16,10 +32,10 @@ const handleLogin =async (formData:FormData)=>{
               <h1 className="text-xl font-bold  text-gray-900  mt-28 ">
                   Sign in to your account
               </h1>
-              <form className="space-y-4 md:space-y-6" action={handleLogin}>
+              <form className="space-y-4 md:space-y-6" action={verifyUser}>
                  {errors &&  <div
     role="alert"
-    className="bg-red-100  border-l-4 border-red-500  text-red-900  p-2 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-red-200 dark:hover:bg-red-800 transform hover:scale-105"
+    className="bg-red-100  border-l-4 border-red-500  text-red-900  p-2 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-red-200"
   >
     <svg
       stroke="currentColor"

@@ -25,8 +25,10 @@ const createUser = async (formData: FormData) => {
         
         
       } 
-      catch (error:unknown) {
-        return error.response.data.errors
+      catch (error:any) {
+        if(error){
+          return error.response.data.errors
+        }
         
       }
       if (responseMsg==='User registered successfully'){
